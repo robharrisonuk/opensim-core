@@ -158,6 +158,7 @@ void MocoJointReactionGoal::printDescriptionImpl() const {
     log_cout("        loads frame: ", get_loads_frame());
     log_cout("        expressed: ", get_expressed_in_frame_path());
 
+#ifndef _WIN32
     std::vector<std::string> measures(getProperty_reaction_measures().size());
     for (int i = 0; i < (int)measures.size(); i++) {
         measures[i] = get_reaction_measures(i);
@@ -165,4 +166,18 @@ void MocoJointReactionGoal::printDescriptionImpl() const {
     log_cout("        reaction measures: {}", fmt::join(measures, ", "));
 
     log_cout("        reaction weights: {}", fmt::join(m_measureWeights, ", "));
+#else
+    // Windows 2022 doesn't like the above. This compiles (not tested).
+    std::string all_measures;
+    for (int i = 0; i < (int)getProperty_reaction_measures().size(); i++) {
+        all_measures += get_reaction_measures(i) + ", ";
+    }
+    log_cout("        reaction measures: {}", all_measures);
+
+    std::string all_weights;
+    for (int i = 0; i < (int)m_measureWeights.size(); i++) {
+        all_weights += ", " + fmt::format("{}", m_measureWeights[i]);
+    }
+    log_cout("        reaction weights: {}", all_weights);
+#endif
 }

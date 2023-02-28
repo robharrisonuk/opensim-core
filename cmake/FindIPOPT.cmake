@@ -176,7 +176,7 @@ else()
   set(IPOPT_DIR $ENV{IPOPT_DIR} CACHE PATH "Path to IPOPT build directory")
 
   set(IPOPT_INCLUDE_DIRS ${IPOPT_DIR}/include/coin)
-  find_library(IPOPT_IPOPT_LIBRARY_RELEASE libipopt ${IPOPT_DIR}/lib
+  find_library(IPOPT_IPOPT_LIBRARY_RELEASE ipopt.dll ${IPOPT_DIR}/lib
                                                     ${IPOPT_DIR}/lib/coin
                                                     NO_DEFAULT_PATH)
   find_library(IPOPT_IPOPT_LIBRARY_DEBUG   libipoptD ${IPOPT_DIR}/lib
@@ -294,12 +294,9 @@ else()
       # The *mt variants (and libifport) should not be required; they are
       # probably for if we use a static runtime library, but we intend to use the
       # the dynamic runtime library (MSVC /MD flag).
-      foreach(_lib ifconsol
-                   libifcoremd
-                   libifportmd
-                   libmmd
-                   libirc
-                   svml_dispmd)
+      foreach(_lib coinmumps.dll
+                   ipoptamplinterface.dll
+                   sipopt.dll.lib)
         string(TOUPPER "${_lib}" _LIB)
         find_library(IPOPT_${_LIB}_LIBRARY_RELEASE ${_lib} ${_IPOPT_IPOPT_LIBRARY_DIR})
         find_library(IPOPT_${_LIB}_LIBRARY_DEBUG ${_lib}d ${_IPOPT_IPOPT_LIBRARY_DIR})

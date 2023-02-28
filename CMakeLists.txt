@@ -831,7 +831,10 @@ if (OPENSIM_WITH_CASADI OR OPENSIM_WITH_TROPTER)
     if(UNIX)
         pkg_check_modules(IPOPT REQUIRED ipopt IMPORTED_TARGET)
     else()
-        find_package(Ipopt REQUIRED CONFIG)
+		set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+		
+		find_package(IPOPT REQUIRED) # CONFIG)
+								
         set_package_properties(IPOPT PROPERTIES
                 URL https://projects.coin-or.org/Ipopt
                 TYPE REQUIRED
@@ -840,7 +843,7 @@ if (OPENSIM_WITH_CASADI OR OPENSIM_WITH_TROPTER)
         # TODO move these flags to a specific target.
         # TODO set(CMAKE_SHARED_LINKER_FLAGS
         # TODO        "${CMAKE_SHARED_LINKER_FLAGS} ${IPOPT_LINK_FLAGS}")
-        OpenSimCopyDependencyDLLsForWin(DEP_NAME IPOPT DEP_BIN_DIR "${Ipopt_ROOT_DIR}/bin")
+        OpenSimCopyDependencyDLLsForWin(DEP_NAME IPOPT DEP_BIN_DIR "${IPOPT_DIR}/bin")
     endif()
 endif()
 

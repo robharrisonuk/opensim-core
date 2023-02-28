@@ -140,10 +140,21 @@ void MocoParameter::printDescription() const {
                 fmt::format("{}", getProperty_property_element().getValue());
     }
 
+#ifndef _WIN32
     log_cout("  {}. model property name: {}. component paths: {}. "
              "property element: {}. bounds: {}",
             getName(), getPropertyName(), fmt::join(componentPaths, ", "),
             propertyElementStr, getBounds());
+#else
+    std::string paths;
+    for (int i = 0; i < componentPaths.size(); i++)
+        paths += ", " + componentPaths[i];
+
+    log_cout("  {}. model property name: {}. component paths: {}. "
+             "property element: {}. bounds: {}",
+            getName(), getPropertyName(), paths,
+            propertyElementStr, getBounds());
+#endif
 }
 
 void MocoParameter::applyParameterToModelProperties(const double& value) const {
