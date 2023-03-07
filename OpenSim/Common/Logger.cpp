@@ -28,6 +28,8 @@
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 
+#include <algorithm>
+
 using namespace OpenSim;
 
 static void initializeLogger(spdlog::logger& l, const char* pattern) {

@@ -158,7 +158,7 @@ void MocoJointReactionGoal::printDescriptionImpl() const {
     log_cout("        loads frame: ", get_loads_frame());
     log_cout("        expressed: ", get_expressed_in_frame_path());
 
-#ifndef _WIN32
+#if 0
     std::vector<std::string> measures(getProperty_reaction_measures().size());
     for (int i = 0; i < (int)measures.size(); i++) {
         measures[i] = get_reaction_measures(i);

@@ -741,8 +741,12 @@ else()
     # Find the package using the user-specified path.
     # NO_DEFAULT_PATH will cause find_package to only
     # look in the provided PATHS.
-    find_package(Simbody ${SIMBODY_VERSION_TO_USE}
-        PATHS "${SIMBODY_HOME}" NO_MODULE NO_DEFAULT_PATH)
+    if(SIMBODY_FIND_FIX)
+        find_package(Simbody ${SIMBODY_VERSION_TO_USE})
+    else()
+        find_package(Simbody ${SIMBODY_VERSION_TO_USE} 
+            PATHS "${SIMBODY_HOME}" NO_MODULE NO_DEFAULT_PATH)
+    endif()
 endif()
 # This variable appears in the CMake GUI and could confuse users,
 # since this variable can't be changed manually.
